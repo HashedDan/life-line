@@ -8,8 +8,9 @@ import * as routes from '../../constants/routes';
 
 const Navigation = (props, { authUser }) =>
   <div>
+    {console.log(authUser)}
     {authUser
-      ? <NavigationAuth />
+      ? <NavigationAuth authUser={authUser} />
       : <NavigationNonAuth />
     }
   </div>
@@ -18,11 +19,14 @@ Navigation.contextTypes = {
   authUser: PropTypes.object,
 };
 
-const NavigationAuth = () =>
+const NavigationAuth = (props) =>
   <div>
+    {console.log(props.authUser.email)}
     <AppBar
       title="Life Line"
-      onLeftIconButtonClick={() => console.log("here")}
+      iconElementRight={<SignOutButton email={props.authUser.email}/>}
+      style={{backgroundColor: "#ff0000"}}
+      showMenuIconButton={false}
     />
     <ul>
       <li><Link to={routes.LANDING}>Landing</Link></li>

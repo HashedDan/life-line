@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
+import DisasterList from '../components/Home/DisasterList'
+import Map from '../components/Home/Map'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
 import { GridList, GridTile } from 'material-ui/GridList'
-import { List, ListItem } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import Subheader from 'material-ui/Subheader';
-import { grey400, darkBlack, lightBlack } from 'material-ui/styles/colors';
-import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer'
-import FlatButton from 'material-ui/FlatButton'
 
-import mapStyle from '../styles/covertmap.json'
 import withAuthorization from '../components/Session/withAuthorization';
 import { db } from '../firebase';
 
@@ -54,20 +49,13 @@ class HomePage extends Component {
             rows={1}
             style={{ height: '100%' }}
           >
-            <MyMapComponent
-              isMarkerShown={true}
-              googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR5Uai7RHVMuveaBzlPYnECg0usXWafZk&libraries=geometry,drawing,places"
-              loadingElement={<div style={{ height: `100%` }} />}
-              containerElement={<div style={{ height: `100%` }} />}
-              mapElement={<div style={{ height: `80vh` }} />}
-              disasters={disasters}
-            />
+            <Map disasters={disasters} />
           </GridTile>
           <GridTile
             cols={2}
             rows={1}
           >
-            <ListGuy disasters={disasters} />
+            <DisasterList disasters={disasters} />
           </GridTile>
         </GridList>
 
@@ -76,41 +64,27 @@ class HomePage extends Component {
   }
 }
 
-const ListGuy = ({ disasters }) =>
-  <List style={{ height: '80vh', overflow: 'scroll', backgroundColor: 'white', padding: '0px' }}>
-    <FlatButton label="Add New" primary={true} fullWidth={true}/>
-    {disasters.map(disaster =>
-      <div key={disaster.index}>
-        <ListItem
-          primaryText={`${disaster.name} - ${disaster.date}`}
-          secondaryText={
-            <p>
-              <span style={{ color: darkBlack }}>{disaster.loc}</span> --
-            {disaster.desc}{` (${disaster.lng}, ${disaster.lat})`}
-            </p>
-          }
-          secondaryTextLines={2}
-        />
-        <Divider />
-      </div>
-    )}
+// const ListGuy = ({ disasters }) =>
+//   <List style={{ height: '80vh', overflow: 'scroll', backgroundColor: 'white', padding: '0px' }}>
+//     <FlatButton label="Add New" primary={true} fullWidth={true} />
+//     {disasters.map(disaster =>
+//       <div key={disaster.index}>
+//         <ListItem
+//           primaryText={`${disaster.name} - ${disaster.date}`}
+//           secondaryText={
+//             <p>
+//               <span style={{ color: darkBlack }}>{disaster.loc}</span> --
+//             {disaster.desc}{` (${disaster.lng}, ${disaster.lat})`}
+//             </p>
+//           }
+//           secondaryTextLines={2}
+//         />
+//         <Divider />
+//       </div>
 
-  </List>
+//     )}
 
-const MyMapComponent = withScriptjs(withGoogleMap((props) =>
-  <GoogleMap
-    defaultZoom={3}
-    defaultCenter={{ lat: 38.627003, lng: -90.199402 }}
-    defaultOptions={{ styles: mapStyle }}
-  >
-    {props.isMarkerShown &&
-      props.disasters.map(disaster =>
-        <div key={disaster.index}>
-          <Marker position={{ lat: parseInt(disaster.lat), lng: parseInt(disaster.lng) }} onMouseOver={() => alert(disaster.name)}/>
-        </div>
-      )}
-  </GoogleMap>
-))
+//   </List>
 
 const UserList = ({ users }) =>
   <div>

@@ -19,7 +19,7 @@ const UserMenu = (props) =>
     >
 
         <Link to={routes.HOME} style={{ textDecoration: "none" }}><MenuItem primaryText="Dashboard" /></Link>
-        <Link to={routes.ACCOUNT} style={{ textDecoration: "none" }}><MenuItem primaryText="Account" /></Link>
+        <Link to={routes.ACCOUNT} style={{ textDecoration: "none" }}><MenuItem primaryText="MyEvents" /></Link>
         <MenuItem primaryText="Sign Out" onClick={auth.doSignOut} />
     </IconMenu>
 

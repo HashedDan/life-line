@@ -6,3 +6,7 @@
 html {
   background: linear-gradient(to top right, red, yellow);
 }
+
+body {
+  margin: 0px;
+}

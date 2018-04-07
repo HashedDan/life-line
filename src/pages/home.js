@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
 
+import mapStyle from '../styles/covertmap.json'
 import withAuthorization from '../components/Session/withAuthorization';
 import { db } from '../firebase';
 
@@ -13,7 +15,9 @@ class HomePage extends Component {
     super(props);
 
     this.state = {
-      users: []
+      users: [],
+      center: { lat: 59.95, lng: 30.33 },
+      zoom: 11
     };
   }
 
@@ -29,13 +33,30 @@ class HomePage extends Component {
     return (
       <div>
         <h1>Home</h1>
-        <p>The Home Page is accessible by every signed in user.</p>
+        {/* <p>The Home Page is accessible by every signed in user.</p>
 
-        { !!users.length && <UserList users={users} /> }
+        { !!users.length && <UserList users={users} /> } */}
+        <MyMapComponent
+          isMarkerShown={true}
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR5Uai7RHVMuveaBzlPYnECg0usXWafZk&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
       </div>
     );
   }
 }
+
+const MyMapComponent = withScriptjs(withGoogleMap((props) =>
+  <GoogleMap
+    defaultZoom={8}
+    defaultCenter={{ lat: 38.627003, lng: -90.199402 }}
+    defaultOptions={{ styles: mapStyle }}
+  >
+    {props.isMarkerShown && <Marker position={{ lat: 38.627003, lng: -90.199402 }} />}
+  </GoogleMap>
+))
 
 const UserList = ({ users }) =>
   <div>

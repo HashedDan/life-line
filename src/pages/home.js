@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DisasterList from '../components/Home/DisasterList'
 import Map from '../components/Home/Map'
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
+import NewDisaster from '../components/Home/NewDisaster'
 import { GridList, GridTile } from 'material-ui/GridList'
 
 import withAuthorization from '../components/Session/withAuthorization';
@@ -19,30 +19,38 @@ class HomePage extends Component {
     this.state = {
       disasters: [],
       center: { lat: 59.95, lng: 30.33 },
-      zoom: 11
+      zoom: 11,
+      open: false,
     };
-  }
-
-  componentDidMount() {
     db.onceGetDisasters().then(snapshot =>
       this.setState(() => ({ disasters: fromObjectToList(snapshot.val()) }))
     );
   }
+
+  componentDidUpdate() {
+    db.onceGetDisasters().then(snapshot =>
+      this.setState(() => ({ disasters: fromObjectToList(snapshot.val()) }))
+    );
+  }
+
+  handleOpenDialog = () =>
+    this.setState({ open: true })
+
+  handleCloseDialog = () => {
+    this.setState({ open: false })
+  }
+
 
   render() {
     const { disasters } = this.state;
 
     return (
       <div style={{ height: '80vh' }}>
-        <h1>Disasters</h1>
-        {/* <p>The Home Page is accessible by every signed in user.</p>
-
-        { !!users.length && <UserList users={users} /> } */}
+        <NewDisaster open={this.state.open} handleCloseDialog={this.handleCloseDialog} handleSubmitDisaster={this.handleSubmitDisaster}/>
         <GridList
           cols={6}
           cellHeight='auto'
           padding={1}
-        // style={{height: '100%'}}
         >
           <GridTile
             cols={4}
@@ -55,7 +63,7 @@ class HomePage extends Component {
             cols={2}
             rows={1}
           >
-            <DisasterList disasters={disasters} />
+            <DisasterList disasters={disasters} handleOpenDialog={this.handleOpenDialog} />
           </GridTile>
         </GridList>
 

@@ -23,7 +23,7 @@ const NavigationAuth = (props) =>
     <AppBar
       title="Life Line"
       iconElementRight={<UserMenu  email={props.authUser.email}/>}
-      style={{backgroundColor: "#ff0000"}}
+      style={{backgroundColor: "#000033"}}
       showMenuIconButton={false}
     />
   </div>

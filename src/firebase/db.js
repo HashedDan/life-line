@@ -13,8 +13,8 @@ export const onceGetUsers = () =>
 
 // Other db APIs ...
 
-export const doCreateDisaster = (id, name, date, desc, loc, lng, lat) =>
-  db.ref(`disasters/${id}`).push({
+export const doCreateDisaster = (name, date, desc, loc, lng, lat) =>
+  db.ref(`disasters/`).push({
     name,
     date,
     desc,

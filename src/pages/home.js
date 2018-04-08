@@ -21,6 +21,7 @@ class HomePage extends Component {
       center: { lat: 59.95, lng: 30.33 },
       zoom: 11,
       open: false,
+      selectedDisaster: {},
     };
     db.onceGetDisasters().then(snapshot =>
       this.setState(() => ({ disasters: fromObjectToList(snapshot.val()) }))
@@ -71,36 +72,6 @@ class HomePage extends Component {
     );
   }
 }
-
-// const ListGuy = ({ disasters }) =>
-//   <List style={{ height: '80vh', overflow: 'scroll', backgroundColor: 'white', padding: '0px' }}>
-//     <FlatButton label="Add New" primary={true} fullWidth={true} />
-//     {disasters.map(disaster =>
-//       <div key={disaster.index}>
-//         <ListItem
-//           primaryText={`${disaster.name} - ${disaster.date}`}
-//           secondaryText={
-//             <p>
-//               <span style={{ color: darkBlack }}>{disaster.loc}</span> --
-//             {disaster.desc}{` (${disaster.lng}, ${disaster.lat})`}
-//             </p>
-//           }
-//           secondaryTextLines={2}
-//         />
-//         <Divider />
-//       </div>
-
-//     )}
-
-//   </List>
-
-const UserList = ({ users }) =>
-  <div>
-    <h2>List of App User IDs (Saved on Sign Up in Firebase Database)</h2>
-    {users.map(user =>
-      <div key={user.index}>{user.username}</div>
-    )}
-  </div>
 
 const authCondition = (authUser) => !!authUser;
 

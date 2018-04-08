@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 const prodConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
-  databaseURL: 'https://life-line-af9ca.firebaseio.com',
+  databaseURL: process.env.DATABASE_URL,
   projectId: process.env.PROJECT_ID,
   storageBucket: '',
   messagingSenderId: process.env.MESSAGING_SENDER_ID,
@@ -12,7 +12,7 @@ const prodConfig = {
 const devConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
-  databaseURL: 'https://life-line-af9ca.firebaseio.com',
+  databaseURL: process.env.DATABASE_URL,
   projectId: process.env.PROJECT_ID,
   storageBucket: '',
   messagingSenderId: process.env.MESSAGING_SENDER_ID,

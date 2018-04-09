@@ -6,7 +6,7 @@ import PasswordChangeForm from '../components/PasswordChange';
 import withAuthorization from '../components/Session/withAuthorization';
 
 const AccountPage = (props, { authUser }) =>
-  <div>
+  <div style={{color: 'white'}}>
     <h1>Account: {authUser.email}</h1>
     <PasswordForgetForm />
     <PasswordChangeForm />

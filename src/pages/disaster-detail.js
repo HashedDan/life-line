@@ -45,12 +45,12 @@ class DisasterDetailPage extends Component {
                                 secondaryText={
                                     <p>
                                         <span style={{ color: darkBlack }}>{event.org}</span> -- {event.desc}
-                                        {(event.type == 'demand') ? <RaisedButton label="Claim" style={{marginLeft: '5px'}}/> : <span></span>}
+                                        {(event.status == 'incomplete') ? <RaisedButton label="Claim" style={{marginLeft: '5px'}}/> : <span></span>}
                                     </p>
                                 }
                                 secondaryTextLines={2}
                                 // onClick={}
-                                style={(event.type == 'supply') ? {backgroundColor: 'green', color: 'white'} : {backgroundColor: 'red', color: 'white'}}
+                                style={(event.status == 'complete') ? {backgroundColor: 'green', color: 'white'} : {backgroundColor: 'red', color: 'white'}}
                                 disabled={true}
                             />
                             <Divider />

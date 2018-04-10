@@ -26,7 +26,5 @@ export const doCreateDisaster = (name, date, desc, loc, lng, lat) =>
 export const onceGetDisasters = () =>
   db.ref('disasters').once('value');
 
-export const doClaimEvent = (disasterId, eventId, claim) =>
-  db.ref(`disasters/${disasterId}/events/${eventId}`).set({
-    claim,
-  });
+export const doClaimEvent = (disasterId, eventId) =>
+  db.ref(`disasters/${disasterId}/events/${eventId}/status`).set("complete");

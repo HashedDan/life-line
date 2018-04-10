@@ -19,6 +19,7 @@ class DisasterDetailPage extends Component {
         this.state = {
             disaster: fromObjectToList(this.props.location.state.disaster.events),
             open: false,
+            disasterId: this.props.location.state.disaster.index,
         };
         // console.log(this.state.disaster.events)
     }
@@ -32,7 +33,7 @@ class DisasterDetailPage extends Component {
 
 
     render() {
-        const { disaster } = this.state;
+        const { disaster, disasterId } = this.state;
 
         return (
             <div style={{ height: '80vh', color: 'white' }}>
@@ -45,7 +46,7 @@ class DisasterDetailPage extends Component {
                                 secondaryText={
                                     <p>
                                         <span style={{ color: darkBlack }}>{event.org}</span> -- {event.desc}
-                                        {(event.status == 'incomplete') ? <RaisedButton label="Claim" style={{marginLeft: '5px'}}/> : <span></span>}
+                                        {(event.status == 'incomplete') ? <RaisedButton label="Claim" style={{marginLeft: '5px'}} onClick={db.doClaimEvent(disasterId, event.index)}/> : <span></span>}
                                     </p>
                                 }
                                 secondaryTextLines={2}

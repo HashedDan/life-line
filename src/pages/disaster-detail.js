@@ -4,6 +4,7 @@ import { grey400, darkBlack, lightBlack } from 'material-ui/styles/colors'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import Divider from 'material-ui/Divider'
+import NewEvent from '../components/DisasterDetail/NewEvent'
 
 import withAuthorization from '../components/Session/withAuthorization';
 import { db } from '../firebase';
@@ -37,6 +38,7 @@ class DisasterDetailPage extends Component {
 
         return (
             <div style={{ height: '80vh', color: 'white' }}>
+                <NewEvent open={this.state.open} disasterId={disasterId} handleCloseDialog={this.handleCloseDialog}/>
                 <List style={{ height: '80vh', overflow: 'scroll', backgroundColor: 'white', padding: '0px' }}>
                     <FlatButton label="Add New" primary={true} fullWidth={true}  onClick={this.handleOpenDialog}/>
                     {disaster.map(event =>
@@ -46,12 +48,12 @@ class DisasterDetailPage extends Component {
                                 secondaryText={
                                     <p>
                                         <span style={{ color: darkBlack }}>{event.org}</span> -- {event.desc}
-                                        {(event.status == 'incomplete') ? <RaisedButton label="Claim" style={{marginLeft: '5px'}} onClick={db.doClaimEvent(disasterId, event.index)}/> : <span></span>}
+                                        {(event.status == 'incomplete') ? <RaisedButton label="Claim" style={{marginLeft: '5px'}} onClick={() => db.doClaimEvent(disasterId, event.index)}/> : <span></span>}
                                     </p>
                                 }
                                 secondaryTextLines={2}
                                 // onClick={}
-                                style={(event.status == 'complete') ? {backgroundColor: 'green', color: 'white'} : {backgroundColor: 'red', color: 'white'}}
+                                style={(event.status == 'complete') ? {backgroundColor: 'green', color: 'white'} : (event.status == 'underway' ? {backgroundColor: 'yellow', color: 'black'} : {backgroundColor: 'red', color: 'white'}) }
                                 disabled={true}
                             />
                             <Divider />

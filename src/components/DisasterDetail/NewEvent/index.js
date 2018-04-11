@@ -11,17 +11,17 @@ export default class NewDisaster extends React.Component {
         super(props)
 
         this.state = {
-            name: '',
+            disasterId: this.props.disasterId,
+            title: '',
             date: '4/7/18',
             desc: '',
-            loc: '',
-            lng: '',
-            lat: '',
+            org: '',
+            status: 'incomplete'
         };
     }
 
-    handleSubmitDisaster = () => {
-        db.doCreateDisaster(this.state.name, this.state.date, this.state.desc, this.state.loc, this.state.lng, this.state.lat)
+    handleSubmitEvent = () => {
+        db.doCreateEvent(this.state.disasterId, this.state.title, this.state.date, this.state.desc, this.state.org, this.state.status)
         this.props.handleCloseDialog()
     }
 
@@ -29,7 +29,7 @@ export default class NewDisaster extends React.Component {
     render() {
         return (
             <Dialog
-                title="Add Disaster"
+                title="Add Event"
                 actions={
                     [
                         <FlatButton
@@ -41,7 +41,7 @@ export default class NewDisaster extends React.Component {
                             label="Submit"
                             primary={true}
                             keyboardFocused={true}
-                            onClick={() => this.handleSubmitDisaster()}
+                            onClick={() => this.handleSubmitEvent()}
                         />,
                     ]
                 }
@@ -62,9 +62,9 @@ export default class NewDisaster extends React.Component {
                     }}
                 />
                 <TextField
-                    hintText="Name"
+                    hintText="Title"
                     style={{ margin: "10px" }}
-                    onChange={(evt) => this.setState({ name: evt.target.value })}
+                    onChange={(evt) => this.setState({ title: evt.target.value })}
                 />
                 <TextField
                     hintText="Description"
@@ -72,19 +72,9 @@ export default class NewDisaster extends React.Component {
                     onChange={(evt) => this.setState({ desc: evt.target.value })}
                 />
                 <TextField
-                    hintText="Location"
+                    hintText="Organization"
                     style={{ margin: "10px" }}
-                    onChange={(evt) => this.setState({ loc: evt.target.value })}
-                />
-                <TextField
-                    hintText="Longitude"
-                    style={{ margin: "10px" }}
-                    onChange={(evt) => this.setState({ lng: evt.target.value })}
-                />
-                <TextField
-                    hintText="Latitude"
-                    style={{ margin: "10px" }}
-                    onChange={(evt) => this.setState({ lat: evt.target.value })}
+                    onChange={(evt) => this.setState({ org: evt.target.value })}
                 />
 
             </Dialog>

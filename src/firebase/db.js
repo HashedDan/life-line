@@ -27,4 +27,13 @@ export const onceGetDisasters = () =>
   db.ref('disasters').once('value');
 
 export const doClaimEvent = (disasterId, eventId) =>
-  db.ref(`disasters/${disasterId}/events/${eventId}/status`).set("complete");
+  db.ref(`disasters/${disasterId}/events/${eventId}/status`).set("underway");
+
+export const doCreateEvent = (disasterId, title, date, desc, org, status) =>
+  db.ref(`disasters/${disasterId}/events/`).push({
+    title,
+    date,
+    desc,
+    org,
+    status,
+  });

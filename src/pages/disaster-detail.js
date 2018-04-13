@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Divider from 'material-ui/Divider'
 import NewEvent from '../components/DisasterDetail/NewEvent'
 
+import PropTypes from 'prop-types';
 import withAuthorization from '../components/Session/withAuthorization';
 import { db } from '../firebase';
 
@@ -15,14 +16,16 @@ const fromObjectToList = (object) =>
         : [];
 
 class DisasterDetailPage extends Component {
-    constructor(props) {
+    constructor(props, { authUser }) {
         super(props);
         this.state = {
             disaster: fromObjectToList(this.props.location.state.disaster.events),
             open: false,
             disasterId: this.props.location.state.disaster.index,
+            userId: authUser.uid,
         };
         // console.log(this.state.disaster.events)
+        console.log(authUser.uid);
     }
 
     handleOpenDialog = () =>
@@ -34,7 +37,7 @@ class DisasterDetailPage extends Component {
 
 
     render() {
-        const { disaster, disasterId } = this.state;
+        const { disaster, disasterId, userId } = this.state;
 
         return (
             <div style={{ height: '80vh', color: 'white' }}>
@@ -48,7 +51,7 @@ class DisasterDetailPage extends Component {
                                 secondaryText={
                                     <p>
                                         <span style={{ color: darkBlack }}>{event.org}</span> -- {event.desc}
-                                        {(event.status == 'incomplete') ? <RaisedButton label="Claim" style={{marginLeft: '5px'}} onClick={() => db.doClaimEvent(disasterId, event.index)}/> : <span></span>}
+                                        {(event.status == 'incomplete') ? <RaisedButton label="Claim" style={{marginLeft: '5px'}} onClick={() => db.doClaimEvent(disasterId, event.index, userId)}/> : <span></span>}
                                     </p>
                                 }
                                 secondaryTextLines={2}
@@ -67,6 +70,10 @@ class DisasterDetailPage extends Component {
         );
     }
 }
+
+DisasterDetailPage.contextTypes = {
+    authUser: PropTypes.object,
+  };
 
 const authCondition = (authUser) => !!authUser;
 

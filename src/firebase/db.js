@@ -26,8 +26,14 @@ export const doCreateDisaster = (name, date, desc, loc, lng, lat) =>
 export const onceGetDisasters = () =>
   db.ref('disasters').once('value');
 
-export const doClaimEvent = (disasterId, eventId) =>
-  db.ref(`disasters/${disasterId}/events/${eventId}/status`).set("underway");
+export const doClaimEvent = (disaster, event, userId) => {
+  db.ref(`disasters/${disaster}/events/${event}/status`).set("underway");
+  db.ref(`users/${userId}/disasters/`).push({
+    disaster,
+    event,
+  });
+}
+  
 
 export const doCreateEvent = (disasterId, title, date, desc, org, status) =>
   db.ref(`disasters/${disasterId}/events/`).push({

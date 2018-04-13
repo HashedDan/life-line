@@ -51,7 +51,7 @@ class DisasterDetailPage extends Component {
                                 secondaryText={
                                     <p>
                                         <span style={{ color: darkBlack }}>{event.org}</span> -- {event.desc}
-                                        {(event.status == 'incomplete') ? <RaisedButton label="Claim" style={{marginLeft: '5px'}} onClick={() => db.doClaimEvent(disasterId, event.index, userId)}/> : <span></span>}
+                                        {(event.status == 'incomplete') ? <RaisedButton label="Claim" style={{marginLeft: '5px'}} onClick={() => {db.doClaimEvent(disasterId, event.index, userId); alert("Event Claimed!")}}/> : <span></span>}
                                     </p>
                                 }
                                 secondaryTextLines={2}

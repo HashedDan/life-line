@@ -28,10 +28,7 @@ export const onceGetDisasters = () =>
 
 export const doClaimEvent = (disaster, event, userId) => {
   db.ref(`disasters/${disaster}/events/${event}/status`).set("underway");
-  db.ref(`users/${userId}/disasters/`).push({
-    disaster,
-    event,
-  });
+  db.ref(`disasters/${disaster}/events/${event}/claimedby`).set("MDRO");
 }
   
 export const doCreateEvent = (disasterId, title, date, desc, org, status) =>
@@ -43,5 +40,7 @@ export const doCreateEvent = (disasterId, title, date, desc, org, status) =>
     status,
   });
 
-export const doGetUserEvents = (userId) =>
-  db.ref(`users/${userId}`).once(`value`);
+  export const doFinishEvent = (disaster, event) => {
+    db.ref(`disasters/${disaster}/events/${event}/status`).set("complete");
+    console.log("HERE")
+  }

@@ -34,7 +34,6 @@ export const doClaimEvent = (disaster, event, userId) => {
   });
 }
   
-
 export const doCreateEvent = (disasterId, title, date, desc, org, status) =>
   db.ref(`disasters/${disasterId}/events/`).push({
     title,
@@ -43,3 +42,6 @@ export const doCreateEvent = (disasterId, title, date, desc, org, status) =>
     org,
     status,
   });
+
+export const doGetUserEvents = (userId) =>
+  db.ref(`users/${userId}`).once(`value`);
